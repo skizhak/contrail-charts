@@ -1,6 +1,6 @@
 {
   "name": "contrail-charts",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Contrail Chart library",
   "main": "build/contrail-charts.js",
   "scripts": {

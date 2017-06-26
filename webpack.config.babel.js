@@ -1,7 +1,7 @@
 /*
  * Copyright (c) Juniper Networks, Inc. All rights reserved.
  */
-import {join} from 'path'
+import { join } from 'path'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 
@@ -11,10 +11,10 @@ const paths = {
   framework: 'plugins/backbone/',
   core: 'core/',
 }
-function absolute (...args) {
+function absolute(...args) {
   return join(__dirname, ...args)
 }
-const defaultEnv = {'dev': true}
+const defaultEnv = { 'dev': true }
 /**
  * Following allows publishing compiled files to multiple paths.
  * add path relative to directory of this config file.
@@ -59,9 +59,9 @@ export default (env = defaultEnv) => {
     'd3-time-format', 'd3-hierarchy', 'd3-geo', 'd3-zoom']
 
   const externals = {
-    'jquery': {amd: 'jquery', root: 'jQuery'},
-    'lodash': {amd: 'lodash', root: '_'},
-    'backbone': {amd: 'backbone', root: 'Backbone'},
+    'jquery': { amd: 'jquery', commonjs: 'jquery', commonjs2: 'jquery', root: 'jQuery' },
+    'lodash': { amd: 'lodash', commonjs: 'lodash', commonjs2: 'lodash', root: '_' },
+    'backbone': { amd: 'backbone', commonjs: 'backbone', commonjs2: 'backbone', root: 'Backbone' },
   }
 
   // For every library added in the include env, we will remove from d3Libs.
@@ -75,7 +75,7 @@ export default (env = defaultEnv) => {
   }
 
   d3Libs.forEach(d3Lib => {
-    externals[d3Lib] = {amd: 'd3v4', root: 'd3'}
+    externals[d3Lib] = { amd: 'd3v4', commonjs: 'd3', commonjs2: 'd3', root: 'd3' }
   })
 
   if (env.prod) {
@@ -102,7 +102,7 @@ export default (env = defaultEnv) => {
       [`${fileName}.min`]: absolute('src/index.js')
     },
     devtool: 'source-map',
-    module: {rules},
+    module: { rules },
     externals: externals,
     resolve: {
       modules: [absolute('src'), 'node_modules'],
